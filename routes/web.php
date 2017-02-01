@@ -12,5 +12,21 @@
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return view('admin');
+});
+
+Route::group(['middleware' => ['web']], function() {
+  Route::resource('country','CountryController');  
+});
+
+Route::group(['middleware' => ['web']], function() {
+  Route::resource('customer','CustomerController');  
+});
+
+Route::group(['middleware' => ['web']], function() {
+  Route::resource('product','ProductController');  
+});
+
+Route::group(['middleware' => ['web']], function() {
+  Route::resource('category','CategoryController');  
 });

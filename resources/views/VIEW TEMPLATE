@@ -1,0 +1,385 @@
+
+///////////////////////////////////////
+////// INDEX
+///////////////////////////////////////
+
+@extends('master')
+@section('content')
+<div class="containter" style="width:80%;margin:auto;">
+    <div class="row">
+        <div class="col-md-9">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row" style="margin:4px;" >
+                            <h3 class="col pull-left">Landen</h3>
+                             <a href="{{route('country.create')}}" class="btn btn-primary col pull-right">Create</a>
+                     </div>
+                </div>
+            </div>
+            
+            <table class="table table-striped list-group">
+                            <tr font-weight:bold;>
+                                <td>Land</td>
+                                <td>Acties</td>
+                            </tr>
+                            @foreach($countries as $item)
+                            
+                            <tr>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                      <a href="{{route('country.show',$item->id)}}" class="btn btn-primary">Select</a> </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+        </div>
+        
+        <div class ="row">
+            <div class="col-md-3 col pull-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <table class="table table-striped list-group">
+                            <tr>
+                                <td>Land</td>
+                                <td>Acties</td>
+                            </tr>
+                            @foreach($countries as $item)
+                            
+                            <tr>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                      <a href="{{route('country.show',$item->id)}}" class="btn btn-primary">Select</a> </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+            
+    </div>
+</div>
+
+
+@stop
+
+
+
+
+///////////////////////////////////////
+////// SHOW
+///////////////////////////////////////
+
+
+@extends('master')
+@section('content')
+<div class="containter" style="width:80%;margin:auto;">
+    <div class="row">
+        <div class="col-md-9">
+            
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row" style="margin:4px;" >
+                            <h3 class="col pull-left">Landen</h3>
+                            <div class="col pull-right">
+                                <form class="" action="{{route('country.destroy',$country->id)}}" method="post">
+                                  <input type="hidden" name="_method" value="delete">
+                                  <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                                  <a href="{{route('country.edit',$country->id)}}" class="btn btn-primary">Edit</a>
+                                  <a href="{{route('country.create')}}" class="btn btn-primary">Create</a>
+                                  <input type="submit" class="btn btn-danger" onclick="return confirm('Bent u zeker?');" name="name" value="Delete">
+                                   <a href="{{route('country.index')}}" class="btn btn-warning">Cancel</a>
+                                </form>
+                            </div>
+                     </div>
+                </div>
+            </div>
+            
+            <table class="table table-striped list-group">
+                <tr>
+                    <td>
+                        <label for="code">Code:</label>
+                    <input type="text" class="form-control"  id="code" name="code" value="{{$country->code}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="name">Naam:</label>
+                    <input type="text" class="form-control"  id="name" name="name" value="{{$country->name}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="longitude">Lengtegraad:</label>
+                    <input type="text" class="form-control"  id="longitude" name="longitude" value="{{$country->longitude}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                    <label for="latitude">Breedtegraad:</label>
+                    <input type="text" class="form-control"  id="latitude" name="latitude" value="{{$country->latitude}}" readonly>
+                    </td>
+                </tr>
+                <tr>
+                    <td>
+                        <label for="shippingcostmultiplier">Verzendkosten:</label>
+                    <input type="text"  class="form-control" id="shippingcostmultiplier" name="shippingcostmultiplier" value="{{$country->shippingcostmultiplier}}" readonly>
+                    </td>
+                </tr>
+                
+            </table>
+        </div>
+        
+        <div class ="row">
+            <div class="col-md-3 col pull-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <table class="table table-striped list-group">
+                            <tr>
+                                <td>Land</td>
+                                <td>Acties</td>
+                            </tr>
+                            @foreach($countries as $item)
+                            <tr>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                      <a href="{{route('country.show',$item->id)}}" class="btn btn-primary">Select</a> </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@stop
+
+
+
+///////////////////////////////////////
+////// CREATE
+///////////////////////////////////////
+
+
+
+@extends('master')
+@section('content')
+<div class="containter" style="width:80%;margin:auto;">
+    <div class="row">
+        <div class="col-md-9">
+          <form class="" action="{{route('country.store')}}" method="post">
+          {{csrf_field()}}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row" style="margin:4px;" >
+                            <h3 class="col pull-left">Landen - Create</h3>
+                            <div class="col pull-right">
+                                <input type="submit" class="btn btn-success" value="Save">
+                                <a href="{{route('country.index')}}" class="btn btn-warning">Cancel</a>
+                            </div>
+                     </div>
+                </div>
+            </div>
+            
+        
+        <table class="table table-striped list-group">
+          <tr>
+              <td>
+                <div class="form-group{{ ($errors->has('code')) ? $errors->first('code') : '' }}">
+                  <label for="code">Code:</label>
+                  <input type="text" name="code" class="form-control" placeholder="Enter code Here">
+                  {!! $errors->first('code','<p class="help-block">:message</p>') !!}
+                </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <div class="form-group{{ ($errors->has('name')) ? $errors->first('name') : '' }}">
+                  <label for="code">Naam:</label>
+                  <input type="text" name="name" class="form-control" placeholder="Enter name Here">
+                  {!! $errors->first('name','<p class="help-block">:message</p>') !!}
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group{{ ($errors->has('latitude')) ? $errors->first('latitude') : '' }}">
+                  <label for="code">Lengtegraad:</label>
+                  <input type="text" name="latitude" class="form-control" placeholder="Enter latitude Here">
+                  {!! $errors->first('latitude','<p class="help-block">:message</p>') !!}
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group{{ ($errors->has('longitude')) ? $errors->first('longitude') : '' }}">
+                  <label for="code">Breedtegraad:</label>
+                  <input type="text" name="longitude" class="form-control" placeholder="Enter longitude Here">
+                  {!! $errors->first('longitude','<p class="help-block">:message</p>') !!}
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group{{ ($errors->has('shippingcostmultiplier')) ? $errors->first('shippingcostmultiplier') : '' }}">
+                  <label for="code">Verzendkosten:</label>
+                  <input type="text" name="shippingcostmultiplier" class="form-control" placeholder="Enter shippingcostmultiplier Here">
+                  {!! $errors->first('shippingcostmultiplier','<p class="help-block">:message</p>') !!}
+                </div>
+              </td>
+          </tr>
+          
+        </table>
+        
+      </form>
+        </div>
+        
+        <div class ="row">
+            <div class="col-md-3 col pull-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <table class="table table-striped list-group">
+                            <tr>
+                                <td>Land</td>
+                                <td>Acties</td>
+                            </tr>
+                            @foreach($countries as $item)
+                            <tr>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                      <a href="{{route('country.show',$item->id)}}" class="btn btn-primary">Select</a> </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@stop
+
+
+
+///////////////////////////////////////
+////// EDIT
+///////////////////////////////////////
+
+
+
+@extends('master')
+@section('content')
+<div class="containter" style="width:80%;margin:auto;">
+    <div class="row">
+        <div class="col-md-9">
+          <form method="post" action="{{ route('country.update',$country->id) }}">
+          {{csrf_field()}}
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <div class="row" style="margin:4px;" >
+                            <h3 class="col pull-left">Landen - Edit</h3>
+                            <div class="col pull-right">
+                                <input type="submit" class="btn btn-success" value="Save">
+                                <a href="{{route('country.index')}}" class="btn btn-warning">Cancel</a>
+                            </div>
+                     </div>
+                </div>
+            </div>
+            
+        <input type="hidden" name="_method" value="PUT">
+        <table class="table table-striped list-group">
+          <tr>
+              <td>
+                <div class="form-group">
+                    <label for="code">Code:</label>
+                    <input type="text" id="code" name="code" value="{{$country->code}}">
+                </div>
+              </td>
+          </tr>
+          <tr>
+              <td>
+                <div class="form-group">
+                    <label for="name">Naam:</label>
+                    <input type="text" id="name" name="name" value="{{$country->name}}">
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group">
+                    <label for="longitude">Lengtegraad:</label>
+                    <input type="text" id="longitude" name="longitude" value="{{$country->longitude}}">
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group">
+                    <label for="latitude">Breedtegraad:</label>
+                    <input type="text" class="form-control" id="latitude" name="latitude" value="{{$country->latitude}}">
+                </div>
+              </td>
+          </tr>
+          
+          <tr>
+              <td>
+                <div class="form-group">
+                    <label for="shippingcostmultiplier">Verzendkosten:</label>
+                    <input type="text" class="form-control" id="shippingcostmultiplier" name="shippingcostmultiplier" value="{{$country->shippingcostmultiplier}}">
+                </div>
+              </td>
+          </tr>
+          
+        </table>
+        
+      </form>
+          <textarea rows="2" class="textarea" readonly>
+        @if(count($errors) > 0)
+            @foreach ($errors->all() as $error)
+                {{$error}}
+            @endforeach
+        @endif
+    </textarea>
+        </div>
+        
+        <div class ="row">
+            <div class="col-md-3 col pull-right">
+                <div class="panel panel-default">
+                    <div class="panel-heading">
+                        <table class="table table-striped list-group">
+                            <tr>
+                                <td>Land</td>
+                                <td>Acties</td>
+                            </tr>
+                            @foreach($countries as $item)
+                            <tr>
+                                <td>{{$item->name}}</td>
+                                <td>
+                                      <a href="{{route('country.show',$item->id)}}" class="btn btn-primary">Select</a> </form>
+                                </td>
+                            </tr>
+                            @endforeach
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+@stop
